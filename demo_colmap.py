@@ -49,14 +49,14 @@ def parse_args():
     )
     parser.add_argument("--shared_camera", action="store_true", default=False, help="Use shared camera for all images")
     parser.add_argument("--camera_type", type=str, default="SIMPLE_PINHOLE", help="Camera type for reconstruction")
-    parser.add_argument("--vis_thresh", type=float, default=0.2, help="Visibility threshold for tracks")
+    parser.add_argument("--vis_thresh", type=float, default=0.1, help="Visibility threshold for tracks")
     parser.add_argument("--query_frame_num", type=int, default=8, help="Number of frames to query")
     parser.add_argument("--max_query_pts", type=int, default=4096, help="Maximum number of query points")
     parser.add_argument(
         "--fine_tracking", action="store_true", default=True, help="Use fine tracking (slower but more accurate)"
     )
     parser.add_argument(
-        "--conf_thres_value", type=float, default=5.0, help="Confidence threshold value for depth filtering (wo BA)"
+        "--conf_thres_value", type=float, default=1.0, help="Confidence threshold value for depth filtering (wo BA)"
     )
     return parser.parse_args()
 
@@ -125,8 +125,8 @@ def demo_fn(args):
 
     # Load images and original coordinates
     # Load Image in 1024, while running VGGT with 518
-    vggt_fixed_resolution = 280
-    img_load_resolution = 512
+    vggt_fixed_resolution = 140
+    img_load_resolution = 256
 
     images, original_coords = load_and_preprocess_images_square(image_path_list, img_load_resolution)
     images = images.to(device)
