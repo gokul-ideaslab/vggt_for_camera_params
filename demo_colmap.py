@@ -22,7 +22,6 @@ from pathlib import Path
 import trimesh
 import pycolmap
 
-
 from vggt.models.vggt import VGGT
 from vggt.utils.load_fn import load_and_preprocess_images_square
 from vggt.utils.pose_enc import pose_encoding_to_extri_intri
@@ -126,8 +125,8 @@ def demo_fn(args):
 
     # Load images and original coordinates
     # Load Image in 1024, while running VGGT with 518
-    vggt_fixed_resolution = 518
-    img_load_resolution = 1024
+    vggt_fixed_resolution = 280
+    img_load_resolution = 512
 
     images, original_coords = load_and_preprocess_images_square(image_path_list, img_load_resolution)
     images = images.to(device)
