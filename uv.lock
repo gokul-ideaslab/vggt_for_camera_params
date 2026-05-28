@@ -3352,6 +3352,8 @@ dependencies = [
     { name = "opencv-python" },
     { name = "pillow" },
     { name = "safetensors" },
+    { name = "scipy", version = "1.15.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "torch" },
     { name = "torchvision" },
 ]
@@ -3388,6 +3390,7 @@ requires-dist = [
     { name = "pillow" },
     { name = "requests", marker = "extra == 'demo'" },
     { name = "safetensors" },
+    { name = "scipy", specifier = ">=1.15.3" },
     { name = "scipy", marker = "extra == 'demo'" },
     { name = "torch", specifier = ">=2.12.0" },
     { name = "torchvision", specifier = ">=0.27.0" },
