@@ -149,5 +149,7 @@ skyseg.onnx
 *.egg-info
 
 # files
+test_vggt_params/kps/*
+test_vggt_params/params/*
 calibration_images/*
 *DS_Store
