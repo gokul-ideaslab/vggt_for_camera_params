@@ -228,24 +228,26 @@ def ba_residuals(
     return np.concatenate(residuals)
 
 if __name__ == "__main__":
-    K_all = np.load("params/avg_intrinsics.npy")       # (3, 3, 3)
-    extrinsics = np.load("params/avg_extrinsics.npy")  # (3, 3, 4)
-    extrinsics = rotate_world_180(extrinsics, axis="y")
-    extrinsics = fix_extrinsic_rotations(extrinsics)
+    K_all = np.load("../calibration_images/winston/camera_params/avg_intrinsics.npy")       # (3, 3, 3)
+    extrinsics = np.load("../calibration_images/winston/camera_params/avg_extrinsics.npy")  # (3, 3, 4)
+    # extrinsics = rotate_world_180(extrinsics, axis="y")
+    # extrinsics = fix_extrinsic_rotations(extrinsics)
 
-    fo = np.load("kps/fo.npy")
-    dtl = np.load("kps/dtl.npy")
-    rear = np.load("kps/rear.npy")
+    fo = np.load("/home/gokul/ideaslab/yolo_model/kps/winston/golf/fo.npy")
+    dtl = np.load("/home/gokul/ideaslab/yolo_model/kps/winston/golf/dtl.npy")
+    rear = np.load("/home/gokul/ideaslab/yolo_model/kps/winston/golf/rear.npy")
 
-    fo = fo[:1952, :, :]
-    dtl = dtl[:1952, :, :]
-    rear = rear[:1952, :, :]
+    print("FO shape:", fo.shape, "DTL shape:", dtl.shape, "Rear shape:", rear.shape)
+
+    fo = fo[:266, :, :]
+    dtl = dtl[:266, :, :]
+    rear = rear[:266, :, :]
     all_kps = np.stack((fo, dtl, rear), axis = 1)
     
     keypoints_2d = all_kps[..., :2]   # (T, 3, J, 2)
     confidences = all_kps[..., 2]     # (T, 3, J)
 
-    frame_ids = np.linspace(0, 1951, 100).astype(int)
+    frame_ids = np.linspace(0, 265, 40).astype(int)
     keypoints_2d_ba = keypoints_2d[frame_ids].astype(np.float64)
     confidences_ba = confidences[frame_ids].astype(np.float64)
 
@@ -352,9 +354,9 @@ if __name__ == "__main__":
 
     print("Refined 3D shape:", X_all.shape)
     
-    np.save("params/ba_params/ba_refined_extrinsics.npy", final_extrinsics)
-    np.save("params/ba_params/ba_refined_3d_joints.npy", X_all)
-    np.save("params/ba_params/ba_result_cost.npy", np.array([result.cost]))
+    np.save("../calibration_images/winston/ba_refined_extrinsics.npy", final_extrinsics)
+    np.save("../calibration_images/winston/ba_refined_3d_joints.npy", X_all)
+    np.save("../calibration_images/winston/ba_result_cost.npy", np.array([result.cost]))
 
     print("Saved:")
     print("ba_refined_extrinsics.npy", final_extrinsics.shape)

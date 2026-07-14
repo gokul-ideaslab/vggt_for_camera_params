@@ -1,8 +1,8 @@
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
-extrinsics = np.load("calibration_images/camera_params/extrinsics.npy")
-intrinsics = np.load("calibration_images/camera_params/intrinsics.npy")
+extrinsics = np.load("calibration_images/winston/camera_params/extrinsics.npy")
+intrinsics = np.load("calibration_images/winston/camera_params/intrinsics.npy")
 
 num_frames = extrinsics.shape[0]
 num_cameras = extrinsics.shape[1]
@@ -48,7 +48,7 @@ for cam_idx in range(num_cameras):
     avg_intrinsics[cam_idx] = np.mean(intrinsics[:, cam_idx], axis=0)
 
 
-np.save("calibration_images/camera_params/avg_extrinsics.npy", avg_extrinsics)
-np.save("calibration_images/camera_params/avg_intrinsics.npy", avg_intrinsics)
+np.save("calibration_images/winston/camera_params/avg_extrinsics.npy", avg_extrinsics)
+np.save("calibration_images/winston/camera_params/avg_intrinsics.npy", avg_intrinsics)
 
 print("Averaged extrinsics and intrinsics saved successfully.")
